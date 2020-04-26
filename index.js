@@ -45,13 +45,27 @@ function `getFinals()` and determine the winner (home or away) of each `finals` 
 Return the name of all winning countries in an array called `winners` */ 
 //============================================================================
 
-function getWinners(/* code here */) {
+function getWinners( getFinals ) {
 
-    /* code here */
+    let finalsArray = getFinals(fifaData);
 
+    //GET HOME TEAMS
+    let winnersPt_1 = finalsArray
+        .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
+        .map( (item) => { return item["Home Team Name"] } );
+
+    //GET AWAY TEAMS ( SEPARATE ARRAY - NOT SURE HOW TO DO THIS IN ONE SHOT??)
+    let winnersPt_2 = finalsArray
+        .filter( item => item["Away Team Goals"] > item["Home Team Goals"] )
+        .map( (item) => { return item["Away Team Name"] } );
+
+    //CONCAT THE TWO ARRAYS
+    let winners = winnersPt_1.concat(winnersPt_2);
+
+    //console.log(winners);
+    return winners;
 };
-
-getWinners();
+//getWinners(getFinals);
 
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following 
 parameters and returns a set of strings "In {year}, {country} won the world cup!" 
