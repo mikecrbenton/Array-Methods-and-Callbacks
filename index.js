@@ -53,6 +53,9 @@ function getWinner( jsonObject ) {
 getWinner( fifaData );
 
 
+
+
+
 //============================================================================
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of 
 objects with only finals data */
@@ -61,14 +64,19 @@ objects with only finals data */
 function getFinals( data ) {
 
     const finalsArray = data.filter( item => item.Stage === "Final" );
-    //console.log(finalsArray);
+
+    console.log(finalsArray);
     return finalsArray;
 };
 //getFinals(fifaData);
 
+// Returns 19 Objects
+
+
+
 
 //============================================================================
-/* Task 3: Impliment a higher-order function called `getYears` that accepts the callback \
+/* Task 3: Impliment a higher-order function called `getYears` that accepts the callback
 function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 //============================================================================
 
@@ -77,10 +85,17 @@ function getYears( getFinals ) {
     let years = getFinals(fifaData);
     years = years.map( (item)=>{ return item.Year });
 
-    //console.log(years);
+    console.log(years);
     return years;
 };
 //getYears(getFinals);
+
+// Returns an array of 19 years
+
+// [1930, 1934, 1938, 1954, 1958, 1962, 1966, 1970, 1974, 1978, 1982, 1986, 
+//  1990, 1994, 1998, 2002, 2006, 2010, 2014]
+
+
 
 
 //============================================================================
@@ -106,10 +121,19 @@ function getWinners( getFinals ) {
     //CONCAT THE TWO ARRAYS ( THE SECOND ONE CONTAINS THE TIES = )
     let winners = winnersPt_1.concat(winnersPt_2);
 
-    //console.log(winners);
+    console.log(winners);
     return winners;
 };
 //getWinners(getFinals);
+
+// Returns an array of the 19 winning teams
+
+// ["Uruguay", "Italy", "Italy", "Germany FR", "Brazil", "Brazil", 
+// "England", "Brazil", "Argentina", "Italy", "Argentina", "Germany FR", 
+// "Germany", "Germany FR", "Italy", "France", "Brazil", "France", "Spain"]
+
+
+
 
 //============================================================================
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following 
@@ -120,17 +144,21 @@ Parameters:
  * callback function getYears
  */
 //============================================================================
-//ARE THE STRINGS SUPPOSED TO BE RETURNED IN AN ARRAY
+
+//ARE THE STRINGS SUPPOSED TO BE RETURNED  - IN AN ARRAY?
 //HOW IS THE WINNERS ARRAY ( WHICH JUST HOLDS THE NAMES OF TEAMS, AND THE YEARS ARRAY WHICH
-// JUST HOLDS THE YEAR CONNECTED ?)
+// JUST HOLDS THE YEAR CONNECT MAKE SENSE ?)
 
 function getWinnersByYear( getWinners, getYears ) {
 
-    //let stringArray = 
 
 };
 
 getWinnersByYear();
+
+
+
+
 
 
 //============================================================================
@@ -140,16 +168,40 @@ and returns the number of world cup wins that country has had.
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 //============================================================================
-// HOW DO YOU CONNECT THE TEAM INITIALS TO WINNING TEAM
 
 function getCountryWins( data, teamInitials ) {
 
     let finalsArray = getFinals(fifaData);
 
+    //GET HOME TEAMS
+    let winnersPt_1 = finalsArray
+        .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
+        .map( (item) => { return item["Home Team Initials"] } );
+
+    //GET AWAY TEAMS ( SEPARATE ARRAY - NOT SURE HOW TO DO THIS IN ONE SHOT??)
+    let winnersPt_2 = finalsArray
+        .filter( item => item["Away Team Goals"] >= item["Home Team Goals"] )
+        .map( (item) => { return item["Away Team Initials"] } );
+
+    //CONCAT THE TWO ARRAYS ( THE SECOND ONE CONTAINS THE TIES = )
+    let winners = winnersPt_1.concat(winnersPt_2);
+                                                                    console.log(winners);//take out
+    let numOfWins = winners.reduce( ( accumulater, item ) => {
+        //if( item === teamInitials){  //START +++++++++++++++++++++++++++++HERE++++++++++++++++++++++++++
+            return accumulater += 1;
+        //}
+     },0);
+    
+    console.log(`The ${numOfWins} for FRA`);
+    return numOfWins;
 
 };
 
 getCountryWins( getFinals, "FRA" );
+
+
+
+
 
 //============================================================================
 /* Task 9: Write a function called `getAverageGoals` that accepts a parameter `data` and returns 
@@ -164,6 +216,10 @@ function getAverageGoals(/* code here */) {
 };
 
 getAverageGoals();
+
+
+
+
 
 
 
