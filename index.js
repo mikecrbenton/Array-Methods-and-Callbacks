@@ -41,9 +41,10 @@ function getWinner( jsonObject ) {
     let winner = jsonObject.filter( eachObject => eachObject.Year === 2014 && eachObject.Stage === "Final" );
 
     if( winner[0]["Home Team Goals"] > winner[0]["Away Team Goals"] ){
-        
+  
         console.log("The Winner is " + winner[0]["Home Team Name"]);
     }
+    
     if( winner[0]["Home Team Goals"] < winner[0]["Away Team Goals"] ){
         
         console.log("The Winner is " + winner[0]["Away Team Name"]);
@@ -55,9 +56,6 @@ function getWinner( jsonObject ) {
 //getWinner( fifaData );
 
 /*---------------RUN CODE------------------ */
-
-
-
 
 
 
@@ -92,10 +90,6 @@ function getFinals( data ) {
 
 
 
-
-
-
-
 //============================================================================
 /* Task 3: Impliment a higher-order function called `getYears` that accepts the callback
 function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
@@ -121,10 +115,6 @@ function getYears( getFinals ) {
 //  1990, 1994, 1998, 2002, 2006, 2010, 2014]
 
 /*---------------RUN CODE------------------ */
-
-
-
-
 
 
 
@@ -171,11 +161,6 @@ getWinners(getFinals);
 // "Germany", "Germany FR", "Italy", "France", "Brazil", "France", "Spain"]
 
 /*---------------RUN CODE------------------ */
-
-
-
-
-
 
 
 
@@ -267,8 +252,6 @@ function getCountryWins( data, teamInitials ) {
 
 
 
-
-
 //============================================================================
 /* Task 9: Write a function called `getAverageGoals` that accepts a parameter `data` and returns 
 the the average number of home team goals and away team goals scored per match 
@@ -283,16 +266,16 @@ function getAverageGoals( data ) {
     let awayTeamGoals = data.reduce( (sum, item) => { return sum += item["Away Team Goals"] },0 ) ;
     //console.log(awayTeamGoals);
 
-    //console.log(data.length);
+    //CONSOLE LOG DEBUGGING
+    //console.log( ( (awayTeamGoals + homeTeamGoals) / data.length).toFixed(2) );
 
-    //console.log( (awayTeamGoals + homeTeamGoals) / data.length);
-
-    //START HERE +++++++++++++++++++++++++++++++++++++++++++ NEED TO ROUND  4/27/2020
-    return (awayTeamGoals + homeTeamGoals) / data.length;
+    return ( ( (awayTeamGoals + homeTeamGoals) / data.length).toFixed(2) );
 };
 /*---------------RUN CODE------------------ */
-getAverageGoals( fifaData );
+//getAverageGoals( fifaData );
 
+//Returns the average of all teams/goals to a .2 point decimal
+// 2.84
 /*---------------RUN CODE------------------ */
 
 

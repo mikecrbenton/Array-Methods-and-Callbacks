@@ -20,23 +20,23 @@ function getWinners( getFinals ) {
     //console.log(goalsArray);
     //let winners = goalsArray.map( (item) => { return item.});
 
-};
-getWinners(getFinals);
+// };
+// getWinners(getFinals);
 
 
-function getWinners( getFinals ) {
+// function getWinners( getFinals ) {
 
-    console.log("in getWinners"); //START HERE++++++++++++++++++++++++++++++++++++++++++++++++++
+//     console.log("in getWinners"); //START HERE++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    let finalsArray = getFinals(fifaData);
+//     let finalsArray = getFinals(fifaData);
 
-    let winners = finalsArray
-        .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
-        .map( (item) => { return item["Home Team Name"] } )
+//     let winners = finalsArray
+//         .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
+//         .map( (item) => { return item["Home Team Name"] } )
 
-         //winners = finalsArray
-        .filter( item => item["Away Team Goals"] > item["Home Team Goals"] )
-        .map( (item) => { return item["Away Team Name"] } );
+//          //winners = finalsArray
+//         .filter( item => item["Away Team Goals"] > item["Home Team Goals"] )
+//         .map( (item) => { return item["Away Team Name"] } );
 
-    console.log(winners);
-};
+//     console.log(winners);
+// };
