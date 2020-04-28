@@ -16,22 +16,22 @@ function getTeamInfo ( jsonObject , teamString ){
 
     console.log(name);
 }
- getTeamInfo(fifaData, "Home Team Name");
+ //getTeamInfo(fifaData, "Home Team Name");
 
 
 // (b) Away Team name for 2014 world cup final
 //--------------------------------------------
-getTeamInfo(fifaData, "Away Team Name");
+//getTeamInfo(fifaData, "Away Team Name");
 
 
 // (c) Home Team goals for 2014 world cup final
 //---------------------------------------------
-getTeamInfo(fifaData, "Home Team Goals");
+//getTeamInfo(fifaData, "Home Team Goals");
 
 
 // (d) Away Team goals for 2014 world cup final
 //---------------------------------------------
-getTeamInfo(fifaData, "Away Team Goals");
+//getTeamInfo(fifaData, "Away Team Goals");
 
 
 // (e) Winner of 2014 world cup final 
@@ -50,7 +50,15 @@ function getWinner( jsonObject ) {
     }
 
 };
-getWinner( fifaData );
+
+/*---------------RUN CODE------------------ */
+//getWinner( fifaData );
+
+/*---------------RUN CODE------------------ */
+
+
+
+
 
 
 
@@ -65,12 +73,25 @@ function getFinals( data ) {
 
     const finalsArray = data.filter( item => item.Stage === "Final" );
 
+    //CONSOLE LOG DEBUGGING
     console.log(finalsArray);
+
     return finalsArray;
 };
+
+/*---------------RUN CODE------------------ */
 //getFinals(fifaData);
 
 // Returns 19 Objects
+
+/*---------------RUN CODE------------------ */
+
+
+
+
+
+
+
 
 
 
@@ -85,15 +106,28 @@ function getYears( getFinals ) {
     let years = getFinals(fifaData);
     years = years.map( (item)=>{ return item.Year });
 
+    //CONSOLE LOG DEBUGGING
     console.log(years);
+
     return years;
 };
+
+/*---------------RUN CODE------------------ */
 //getYears(getFinals);
 
 // Returns an array of 19 years
 
 // [1930, 1934, 1938, 1954, 1958, 1962, 1966, 1970, 1974, 1978, 1982, 1986, 
 //  1990, 1994, 1998, 2002, 2006, 2010, 2014]
+
+/*---------------RUN CODE------------------ */
+
+
+
+
+
+
+
 
 
 
@@ -111,26 +145,40 @@ function getWinners( getFinals ) {
     //GET HOME TEAMS
     let winnersPt_1 = finalsArray
         .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
-        .map( (item) => { return item["Home Team Name"] } );
+        .map( item =>  item["Home Team Name"]  );
 
     //GET AWAY TEAMS ( SEPARATE ARRAY - NOT SURE HOW TO DO THIS IN ONE SHOT??)
     let winnersPt_2 = finalsArray
         .filter( item => item["Away Team Goals"] >= item["Home Team Goals"] )
-        .map( (item) => { return item["Away Team Name"] } );
+        .map( item => item["Away Team Name"] );
 
     //CONCAT THE TWO ARRAYS ( THE SECOND ONE CONTAINS THE TIES = )
     let winners = winnersPt_1.concat(winnersPt_2);
 
+    //CONSOLE LOG DEBUGGING
     console.log(winners);
+
     return winners;
 };
-//getWinners(getFinals);
+
+/*---------------RUN CODE------------------ */
+getWinners(getFinals);
 
 // Returns an array of the 19 winning teams
 
 // ["Uruguay", "Italy", "Italy", "Germany FR", "Brazil", "Brazil", 
 // "England", "Brazil", "Argentina", "Italy", "Argentina", "Germany FR", 
 // "Germany", "Germany FR", "Italy", "France", "Brazil", "France", "Spain"]
+
+/*---------------RUN CODE------------------ */
+
+
+
+
+
+
+
+
 
 
 
@@ -153,8 +201,14 @@ function getWinnersByYear( getWinners, getYears ) {
 
 
 };
-
+/*---------------RUN CODE------------------ */
 getWinnersByYear();
+/*---------------RUN CODE------------------ */
+
+
+
+
+
 
 
 
@@ -176,28 +230,40 @@ function getCountryWins( data, teamInitials ) {
     //GET HOME TEAMS
     let winnersPt_1 = finalsArray
         .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
-        .map( (item) => { return item["Home Team Initials"] } );
+        .map( item =>  item["Home Team Initials"] );
+
 
     //GET AWAY TEAMS ( SEPARATE ARRAY - NOT SURE HOW TO DO THIS IN ONE SHOT??)
     let winnersPt_2 = finalsArray
         .filter( item => item["Away Team Goals"] >= item["Home Team Goals"] )
-        .map( (item) => { return item["Away Team Initials"] } );
+        .map( item =>  item["Away Team Initials"] );
+
 
     //CONCAT THE TWO ARRAYS ( THE SECOND ONE CONTAINS THE TIES = )
     let winners = winnersPt_1.concat(winnersPt_2);
-                                                                    console.log(winners);//take out
-    let numOfWins = winners.reduce( ( accumulater, item ) => {
-        //if( item === teamInitials){  //START +++++++++++++++++++++++++++++HERE++++++++++++++++++++++++++
-            return accumulater += 1;
-        //}
-     },0);
-    
-    console.log(`The ${numOfWins} for FRA`);
+        
+
+    //FILTER OUT THE DESIRED TEAM, AND ADD UP THE WINS
+    let numOfWins = winners
+        .filter( item => item === "FRA" )
+        .reduce( (sum, item) => sum += 1 , 0 );
+  
+    //CONSOLE LOG DEBUGGING
+    console.log(`There are ${numOfWins} wins for ${teamInitials}`);
+
     return numOfWins;
 
 };
+/*---------------RUN CODE------------------ */
+//getCountryWins( getFinals, "FRA" );
 
-getCountryWins( getFinals, "FRA" );
+// Returns a string including the correct number of wins
+// There are 2 wins for FRA
+
+/*---------------RUN CODE------------------ */
+
+
+
 
 
 
@@ -209,13 +275,31 @@ the the average number of home team goals and away team goals scored per match
 (Hint: use .reduce and do this in 2 steps) */
 //============================================================================
 
-function getAverageGoals(/* code here */) {
+function getAverageGoals( data ) {
 
-    /* code here */
+    let homeTeamGoals = data.reduce( (sum, item) => { return sum += item["Home Team Goals"] },0 ) ;
+    //console.log(homeTeamGoals);
 
+    let awayTeamGoals = data.reduce( (sum, item) => { return sum += item["Away Team Goals"] },0 ) ;
+    //console.log(awayTeamGoals);
+
+    //console.log(data.length);
+
+    //console.log( (awayTeamGoals + homeTeamGoals) / data.length);
+
+    //START HERE +++++++++++++++++++++++++++++++++++++++++++ NEED TO ROUND  4/27/2020
+    return (awayTeamGoals + homeTeamGoals) / data.length;
 };
+/*---------------RUN CODE------------------ */
+getAverageGoals( fifaData );
 
-getAverageGoals();
+/*---------------RUN CODE------------------ */
+
+
+
+
+
+
 
 
 
