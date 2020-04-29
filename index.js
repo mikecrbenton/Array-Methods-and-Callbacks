@@ -16,22 +16,22 @@ function getTeamInfo ( jsonObject , teamString ){
 
     console.log(name);
 }
- //getTeamInfo(fifaData, "Home Team Name");
+ getTeamInfo(fifaData, "Home Team Name");
 
 
 // (b) Away Team name for 2014 world cup final
 //--------------------------------------------
-//getTeamInfo(fifaData, "Away Team Name");
+getTeamInfo(fifaData, "Away Team Name");
 
 
 // (c) Home Team goals for 2014 world cup final
 //---------------------------------------------
-//getTeamInfo(fifaData, "Home Team Goals");
+getTeamInfo(fifaData, "Home Team Goals");
 
 
 // (d) Away Team goals for 2014 world cup final
 //---------------------------------------------
-//getTeamInfo(fifaData, "Away Team Goals");
+getTeamInfo(fifaData, "Away Team Goals");
 
 
 // (e) Winner of 2014 world cup final 
@@ -53,7 +53,7 @@ function getWinner( jsonObject ) {
 };
 
 /*---------------RUN CODE------------------ */
-//getWinner( fifaData );
+getWinner( fifaData );
 
 /*---------------RUN CODE------------------ */
 
@@ -72,13 +72,13 @@ function getFinals( data ) {
     const finalsArray = data.filter( item => item.Stage === "Final" );
 
     //CONSOLE LOG DEBUGGING
-    console.log(finalsArray);
+    //console.log(finalsArray);
 
     return finalsArray;
 };
 
 /*---------------RUN CODE------------------ */
-//getFinals(fifaData);
+console.log( getFinals(fifaData) );
 
 // Returns 19 Objects
 
@@ -107,7 +107,7 @@ function getYears( getFinals ) {
 };
 
 /*---------------RUN CODE------------------ */
-//getYears(getFinals);
+getYears(getFinals);
 
 // Returns an array of 19 years
 
@@ -132,23 +132,45 @@ function getWinners( getFinals ) {
 
     let finalsArray = getFinals(fifaData);
 
+    //CALLBACK FUNCTION TO PASS TO FILTER - THIS RETURNS WHICH TEAM WON THE FINAL GAME
+    function sortWins( item ){
+
+        if( item["Home Team Goals"] > item["Away Team Goals"]){
+            return item;
+        }else if( item["Away Team Goals"] >= item["Home Team Goals"]){
+            return item;
+        }
+    }
+
     //GET HOME TEAMS
-    let winnersPt_1 = finalsArray
-        .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
+    let winners = finalsArray
+        .filter( (sortWins) )
         .map( item =>  item["Home Team Name"]  );
 
-    //GET AWAY TEAMS ( SEPARATE ARRAY - NOT SURE HOW TO DO THIS IN ONE SHOT??)
-    let winnersPt_2 = finalsArray
-        .filter( item => item["Away Team Goals"] >= item["Home Team Goals"] )
-        .map( item => item["Away Team Name"] );
-
-    //CONCAT THE TWO ARRAYS ( THE SECOND ONE CONTAINS THE TIES = )
-    let winners = winnersPt_1.concat(winnersPt_2);
 
     //CONSOLE LOG DEBUGGING
     console.log(winners);
 
     return winners;
+
+
+
+    //original legacy code trying to figure things out
+    //----------------------------------------------------------------------------------------------
+    // //GET HOME TEAMS
+    // let winnersPt_1 = finalsArray
+    //     .filter( item => item["Home Team Goals"] > item["Away Team Goals"] )
+    //     .map( item =>  item["Home Team Name"]  );
+
+    // //GET AWAY TEAMS ( SEPARATE ARRAY - NOT SURE HOW TO DO THIS IN ONE SHOT??)
+    // let winnersPt_2 = finalsArray
+    //     .filter( item => item["Away Team Goals"] >= item["Home Team Goals"] )
+    //     .map( item => item["Away Team Name"] );
+
+    // //CONCAT THE TWO ARRAYS ( THE SECOND ONE CONTAINS THE TIES = )
+    // let winners = winnersPt_1.concat(winnersPt_2);
+    //-----------------------------------------------------------------------------------------------
+
 };
 
 /*---------------RUN CODE------------------ */
@@ -156,9 +178,10 @@ getWinners(getFinals);
 
 // Returns an array of the 19 winning teams
 
-// ["Uruguay", "Italy", "Italy", "Germany FR", "Brazil", "Brazil", 
-// "England", "Brazil", "Argentina", "Italy", "Argentina", "Germany FR", 
-// "Germany", "Germany FR", "Italy", "France", "Brazil", "France", "Spain"]
+// ["Uruguay", "Italy", "Italy", "Germany FR", "Brazil", 
+// "Brazil", "England", "Brazil", "Netherlands", "Argentina", 
+// "Italy", "Argentina", "Germany FR", "Brazil", "Brazil", 
+// "Germany", "Italy", "Netherlands", "Germany"]
 
 /*---------------RUN CODE------------------ */
 
@@ -240,7 +263,7 @@ function getCountryWins( data, teamInitials ) {
 
 };
 /*---------------RUN CODE------------------ */
-//getCountryWins( getFinals, "FRA" );
+getCountryWins( getFinals, "FRA" );
 
 // Returns a string including the correct number of wins
 // There are 2 wins for FRA
@@ -272,7 +295,7 @@ function getAverageGoals( data ) {
     return ( ( (awayTeamGoals + homeTeamGoals) / data.length).toFixed(2) );
 };
 /*---------------RUN CODE------------------ */
-//getAverageGoals( fifaData );
+console.log( getAverageGoals( fifaData ) );
 
 //Returns the average of all teams/goals to a .2 point decimal
 // 2.84
