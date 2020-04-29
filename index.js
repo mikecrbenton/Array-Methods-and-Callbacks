@@ -155,7 +155,7 @@ function getWinners( getFinals ) {
 
 
 
-    //original legacy code trying to figure things out
+    //original legacy code - trying to figure things out
     //----------------------------------------------------------------------------------------------
     // //GET HOME TEAMS
     // let winnersPt_1 = finalsArray
@@ -189,8 +189,6 @@ getWinners(getFinals);
 
 
 
-
-
 //============================================================================
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following 
 parameters and returns a set of strings "In {year}, {country} won the world cup!" 
@@ -201,23 +199,24 @@ Parameters:
  */
 //============================================================================
 
-//ARE THE STRINGS SUPPOSED TO BE RETURNED  - IN AN ARRAY?
-//HOW IS THE WINNERS ARRAY ( WHICH JUST HOLDS THE NAMES OF TEAMS, AND THE YEARS ARRAY WHICH
-// JUST HOLDS THE YEAR CONNECT MAKE SENSE ?)
+function getWinnersByYear( winnersFunction, yearsFunction ) {
 
-function getWinnersByYear( getWinners, getYears ) {
+    let winners = winnersFunction(getFinals);
+    let years = yearsFunction(getFinals);
 
+    const stringArray = [];
+
+    for(let i=0 ; i<years.length ; i++){
+
+        stringArray.push( `In ${years[i]}, ${winners[i]} won the world cup!`);
+    }
+
+    console.log( stringArray);
 
 };
 /*---------------RUN CODE------------------ */
-getWinnersByYear();
+getWinnersByYear( getWinners, getYears);
 /*---------------RUN CODE------------------ */
-
-
-
-
-
-
 
 
 
@@ -253,7 +252,7 @@ function getCountryWins( data, teamInitials ) {
 
     //FILTER OUT THE DESIRED TEAM, AND ADD UP THE WINS
     let numOfWins = winners
-        .filter( item => item === "FRA" )
+        .filter( item => item === teamInitials )
         .reduce( (sum, item) => sum += 1 , 0 );
   
     //CONSOLE LOG DEBUGGING
