@@ -314,11 +314,12 @@ console.log( getAverageGoals( fifaData ) );
 
 /// STRETCH 🥅 //
 
-/* STRETCH 1: Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
+/* STRETCH 1: Write a function called getGoals() that accepts a parameter `data` and returns the 
+team with the most goals score per appearance (average goals for) in the World Cup finals */
 
-function getGoals(/* code here */) {
+function getGoals( data ) {
 
-    /* code here */
+    
 
 };
 
