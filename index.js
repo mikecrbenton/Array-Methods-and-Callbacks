@@ -130,6 +130,7 @@ Return the name of all winning countries in an array called `winners` */
 
 function getWinners( getFinals ) {
 
+   //CALL GETFINALS() FUNCTION FROM EARLIER IN CODE
     let finalsArray = getFinals(fifaData);
 
     //CALLBACK FUNCTION TO PASS TO FILTER - THIS RETURNS WHICH TEAM WON THE FINAL GAME
