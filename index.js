@@ -69,7 +69,7 @@ objects with only finals data */
 
 function getFinals( data ) {
 
-    const finalsArray = data.filter( item => item.Stage === "Final" );
+    let finalsArray = data.filter( item => item.Stage === "Final" );
 
     //CONSOLE LOG DEBUGGING
     //console.log(finalsArray);
@@ -104,6 +104,7 @@ function getYears( getFinals ) {
     console.log(years);
 
     return years;
+
 };
 
 /*---------------RUN CODE------------------ */
